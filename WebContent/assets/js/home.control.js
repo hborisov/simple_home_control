@@ -16,18 +16,19 @@ var HomeControl = (function ($) {
 						<div> \
 						<h3>Thing " + thing.name + "</h3> \
 						<h4>Thing " + thing.id + "</h4> \
-						<div id=\"thing-"+thing.id+"button-group\" class=\"btn-group\" data-toggle=\"buttons\"> \
-						  <label class=\"btn btn-primary active\"> \
-						    <input type=\"radio\" name=\"options\" autocomplete=\"off\" value=\"on\" checked> On \
-						  </label> \
-						  <label class=\"btn btn-primary\"> \
-						    <input type=\"radio\" name=\"options\" autocomplete=\"off\" value=\"off\"> Off \
-						  </label> \
-						</div> \
+						<button id=\"switched-on-"+ thing.id + "\" type=\"button\" class=\"btn btn-info btn-lg\">Switched On</button> \
 					</div> \
 				</div> \
 				<div class=\"col-md-4\"></div> \
 			</div>"		
+		};
+
+		thing.switchOn = function () {
+			$.get(thing.address + "/on");
+		};
+
+		thing.switchOff = function () {
+			$.get(thing.address + "/off");
 		};
 
 		things.push(thing);
@@ -50,8 +51,17 @@ $("#add-thing").click(function() {
 	var newThing = HomeControl.addThing(newThingId, newThingName, newThingAddress);
 	
 	$(".container").append(newThing.render());
-});
-
-$("#thing-button-group").click(function() {
-	console.log($('#thing-button-group input:radio:checked').val());
+	var selectorId = "#switched-on-"+ newThingId;
+	$(selectorId).click(function() {
+		var isSwitchedOn = $('#switched-on-'+newThingId).hasClass("active");
+		if (isSwitchedOn) {
+			$(this).removeClass("active");
+			$(this).text("Switched Off");
+			newThing.switchOff();
+		} else {
+			$(this).addClass("active");
+			$(this).text("Switched On");
+			newThing.switchOn();
+		}
+	});
 });
