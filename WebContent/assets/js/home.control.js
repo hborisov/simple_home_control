@@ -16,7 +16,7 @@ var HomeControl = (function ($) {
 						<div> \
 						<h3>Thing " + thing.name + "</h3> \
 						<h4>Thing " + thing.id + "</h4> \
-						<button id=\"switched-on-"+ thing.id + "\" type=\"button\" class=\"btn btn-info btn-lg\">Switched On</button> \
+						<button id=\"switched-on-"+ thing.id + "\" type=\"button\" class=\"btn btn-info btn-lg\">Switched Off</button> \
 					</div> \
 				</div> \
 				<div class=\"col-md-4\"></div> \
